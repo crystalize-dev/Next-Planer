@@ -7,10 +7,12 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { signIn } from 'next-auth/react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const Page = () => {
     const [formType, setFormType] = useState<'login' | 'register'>('login');
     const [fetching, setFetching] = useState<boolean>(false);
+    const router = useRouter();
 
     const submitForm = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -31,7 +33,7 @@ const Page = () => {
                 if (!res.ok) {
                     return Promise.reject('Неверный пароль или email!');
                 } else {
-                    console.log(res);
+                    router.push('/');
                     return Promise.resolve('Успешный вход!');
                 }
             });
@@ -80,16 +82,22 @@ const Page = () => {
     return (
         <div
             className={
-                'flex h-full w-full items-center justify-center bg-white'
+                'flex h-full w-full items-center justify-center bg-mainLighter'
             }
         >
             <AnimatePresence mode={'wait'}>
                 {formType === 'login' && (
                     <motion.form
                         key={'loginForm'}
-                        initial={{ opacity: 0, x: '-100vw' }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: '-100vw' }}
+                        initial={{
+                            opacity: 0,
+                            rotateY: '90deg'
+                        }}
+                        animate={{ opacity: 1, rotateY: 0 }}
+                        exit={{
+                            opacity: 0,
+                            rotateY: '90deg'
+                        }}
                         transition={{ duration: 0.4, type: 'spring' }}
                         onSubmit={(e) => submitForm(e)}
                         className={
@@ -108,7 +116,7 @@ const Page = () => {
                         </h1>
 
                         <InputTransparent
-                            placeholder={'Email'}
+                            placeholder={'Почта'}
                             type={'email'}
                             name={'loginEmail'}
                             id="loginEmail"
@@ -126,7 +134,7 @@ const Page = () => {
 
                         <Button
                             variant={'colored'}
-                            className={'w-full rounded-md'}
+                            className={'w-full rounded-md font-bold'}
                             disabled={fetching}
                         >
                             Войти
@@ -138,29 +146,31 @@ const Page = () => {
                             }
                         >
                             <hr className={'w-full'} />
-                            <p className={'absolute bg-white p-2'}>или</p>
+                            <p
+                                className={
+                                    'absolute bg-white p-2 text-zinc-500'
+                                }
+                            >
+                                или
+                            </p>
                         </div>
 
                         <Button
                             disabled={fetching}
-                            variant={'black'}
+                            variant={'bordered'}
                             type={'button'}
                             onClick={signWithGoogle}
-                            className={
-                                'relative flex h-10 w-full resize items-center justify-center gap-4'
-                            }
+                            className={'relative rounded-full !p-2'}
                         >
-                            <p className={'text-lg font-bold'}>Google</p>
                             <Image
                                 src={'/google.webp'}
                                 alt={'google logo'}
-                                width={100}
-                                height={100}
-                                className={'h-full w-fit object-contain'}
+                                width={30}
+                                height={30}
                             />
                         </Button>
 
-                        <p className={'-mt-4 flex gap-1'}>
+                        <p className={'-mt-4 flex gap-1 text-zinc-500'}>
                             Нет аккаунта?
                             <span
                                 className={`cursor-pointer underline transition-all hover:text-main ${fetching && 'cursor-not-allowed'}`}
@@ -179,9 +189,15 @@ const Page = () => {
                 {formType === 'register' && (
                     <motion.form
                         key={'registerForm'}
-                        initial={{ opacity: 0, x: '100vw' }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: '100vw' }}
+                        initial={{
+                            opacity: 0,
+                            rotateY: '-90deg'
+                        }}
+                        animate={{ opacity: 1, rotateY: 0 }}
+                        exit={{
+                            opacity: 0,
+                            rotateY: '-90deg'
+                        }}
                         transition={{ duration: 0.4, type: 'spring' }}
                         onSubmit={(e) => submitForm(e)}
                         className={
@@ -200,7 +216,7 @@ const Page = () => {
                         </h1>
 
                         <InputTransparent
-                            placeholder={'Email'}
+                            placeholder={'Почта'}
                             type={'email'}
                             name={'registerEmail'}
                             id="registerEmail"
@@ -218,7 +234,7 @@ const Page = () => {
 
                         <Button
                             variant={'colored'}
-                            className={'w-full rounded-md'}
+                            className={'w-full rounded-md font-bold'}
                             disabled={fetching}
                         >
                             Зарегистрироваться
@@ -230,29 +246,33 @@ const Page = () => {
                             }
                         >
                             <hr className={'w-full'} />
-                            <p className={'absolute bg-white p-2'}>или</p>
+                            <p
+                                className={
+                                    'absolute bg-white p-2 text-zinc-500'
+                                }
+                            >
+                                или
+                            </p>
                         </div>
 
                         <Button
-                            variant={'black'}
                             disabled={fetching}
-                            onClick={signWithGoogle}
+                            variant={'bordered'}
                             type={'button'}
+                            onClick={signWithGoogle}
                             className={
-                                'relative flex h-10 w-full resize items-center justify-center gap-4'
+                                'relative rounded-full !p-2 delay-500 hover:delay-0'
                             }
                         >
-                            <p className={'text-lg font-bold'}>Google</p>
                             <Image
                                 src={'/google.webp'}
                                 alt={'google logo'}
-                                width={100}
-                                height={100}
-                                className={'h-full w-fit object-contain'}
+                                width={30}
+                                height={30}
                             />
                         </Button>
 
-                        <p className={'-mt-4 flex gap-1'}>
+                        <p className={'-mt-4 flex gap-1 text-zinc-500'}>
                             Уже есть аккаунт?
                             <span
                                 className={`cursor-pointer underline transition-all hover:text-main ${fetching && 'cursor-not-allowed'}`}

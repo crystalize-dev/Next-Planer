@@ -26,23 +26,17 @@ export default function Home() {
                 }
             >
                 <div className={'flex h-fit w-fit items-center gap-2 p-2'}>
-                    <Button variant={'bordered'}>
-                        <Icon
-                            icon={'arrowLeftDouble'}
-                            onClick={decreaseByYear}
-                        />
+                    <Button variant={'bordered'} onClick={decreaseByYear}>
+                        <Icon icon={'arrowLeftDouble'} />
                     </Button>
-                    <Button variant={'bordered'}>
-                        <Icon icon={'arrowLeft'} onClick={decreaseDateTime} />
+                    <Button variant={'bordered'} onClick={decreaseDateTime}>
+                        <Icon icon={'arrowLeft'} />
                     </Button>
-                    <Button variant={'bordered'}>
-                        <Icon icon={'arrowRight'} onClick={increaseDateTime} />
+                    <Button variant={'bordered'} onClick={increaseDateTime}>
+                        <Icon icon={'arrowRight'} />
                     </Button>
-                    <Button variant={'bordered'}>
-                        <Icon
-                            icon={'arrowRightDouble'}
-                            onClick={increaseByYear}
-                        />
+                    <Button variant={'bordered'} onClick={increaseByYear}>
+                        <Icon icon={'arrowRightDouble'} />
                     </Button>
                     <h1 className={'ml-2 text-xl font-bold capitalize'}>
                         {beautifulNames.monthName +

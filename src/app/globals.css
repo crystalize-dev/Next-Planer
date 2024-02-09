@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 #root {
-    --main-darker: #3b64c5;
-    --main: #547fe8;
-    --main-lighter: #e9f0ff;
+    --main-darker: #0f6b96;
+    --main: #25aae8;
+    --main-lighter: #b4e6fd;
 
     --aside-width: 15%;
     --min-aside-width: 17rem;
@@ -28,7 +28,7 @@ a, button, img, input {
     grid-template-rows: fit-content(100%) repeat(6, 1fr);
 }
 
-.gridSpecial > :nth-child(7n -1), .gridSpecial > :nth-child(7n) {
+.gridSpecial > :nth-child(7n + 6), .gridSpecial > :nth-child(7n) {
     @apply bg-zinc-100
 }
 
